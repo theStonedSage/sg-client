@@ -1,0 +1,35 @@
+.footer-wrapper {
+  background-color: #212121;
+  padding: 3rem;
+  color: grey;
+
+  .footer-container {
+    div {
+      &:nth-child(2) {
+        margin-top: 0.3rem;
+      }
+      &:nth-child(3) {
+        margin-top: 3rem;
+        svg {
+            color: white;
+          font-size: 3rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 480px) {
+    .footer-container {
+        div {
+          &:nth-child(1) {
+              display: block;
+              span{
+                  display: none;
+              }
+          }
+          
+        }
+      }
+  }
