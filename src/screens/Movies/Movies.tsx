@@ -1,7 +1,9 @@
 import { Box, Container, Grid, TablePagination } from "@mui/material";
 import React, { useState } from "react";
 import EntryCard from "../../components/EntryCard";
+import Loader from "../../components/Loader";
 import TitleBar from "../../components/TitleBar";
+import { PresentationLayout } from "../../layouts/PresentationLayout";
 import { useGetMoviesByPage, useGetMoviesCount } from "../../queries";
 import { pageSize } from "../../utils/constants";
 
@@ -13,12 +15,12 @@ const Movies: React.FC<IMoviesProps> = () => {
   const { data: movies, isLoading, isError } = useGetMoviesByPage(page + 1);
 
   return (
-    <>
+    <PresentationLayout>
       <TitleBar title="Popular Movies" />
       <Container sx={{ py: 8 }} maxWidth="lg">
         <Grid container spacing={1}>
           {isLoading
-            ? "loading"
+            ? <Loader />
             : isError
             ? "some error occured"
             : movies?.data?.map((m: any, i: number) => (
@@ -40,19 +42,26 @@ const Movies: React.FC<IMoviesProps> = () => {
               ))}
         </Grid>
       </Container>
-      <Box
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb:5 }}
-      >
-        <TablePagination
-          rowsPerPageOptions={[]}
-          component="div"
-          count={Number(movieCount?.data)} // This is what your request should be returning in addition to the current page of rows.
-          rowsPerPage={pageSize}
-          page={page}
-          onPageChange={(e, p) => setPage(p)}
-        />
-      </Box>
-    </>
+      {movieCount && (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mb: 5,
+          }}
+        >
+          <TablePagination
+            rowsPerPageOptions={[]}
+            component="div"
+            count={Number(movieCount?.data)} // This is what your request should be returning in addition to the current page of rows.
+            rowsPerPage={pageSize}
+            page={page}
+            onPageChange={(e, p) => setPage(p)}
+          />
+        </Box>
+      )}
+    </PresentationLayout>
   );
 };
 

@@ -1,2 +1,2 @@
-export const serverBaseUrl = 'http://localhost:3000';
+export const serverBaseUrl = 'https://obscure-tundra-60631.herokuapp.com/';
 export const pageSize = 10;
